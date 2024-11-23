@@ -1,0 +1,22 @@
+<div class="container">
+    <h2>Asignaturas</h2>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Nombre</th>
+          <th>Código</th>
+          <th>Descripción</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let course of courses">
+          <td>{{ course.id }}</td>
+          <td>{{ course.name }}</td>
+          <td>{{ course.code }}</td>
+          <td>{{ course.description }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  

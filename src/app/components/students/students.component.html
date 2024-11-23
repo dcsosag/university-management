@@ -1,0 +1,37 @@
+<div class="container mt-5">
+    <h2>Gestión de Estudiantes</h2>
+    <form (ngSubmit)="addStudent()">
+      <div class="mb-3">
+        <label for="name" class="form-label">Nombre</label>
+        <input
+          type="text"
+          id="name"
+          class="form-control"
+          [(ngModel)]="newStudent.name"
+          name="name"
+          required
+        />
+      </div>
+      <div class="mb-3">
+        <label for="email" class="form-label">Email</label>
+        <input
+          type="email"
+          id="email"
+          class="form-control"
+          [(ngModel)]="newStudent.email"
+          name="email"
+          required
+        />
+      </div>
+      <button class="btn btn-primary">Agregar Estudiante</button>
+    </form>
+    <hr />
+    <h3>Lista de Estudiantes</h3>
+    <ul class="list-group">
+      <li class="list-group-item d-flex justify-content-between align-items-center" *ngFor="let student of students">
+        {{ student.name }} - {{ student.email }}
+        <button class="btn btn-danger btn-sm" (click)="deleteStudent(student.id)">Eliminar</button>
+      </li>
+    </ul>
+  </div>
+  
