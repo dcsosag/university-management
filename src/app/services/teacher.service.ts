@@ -1,14 +1,15 @@
+// src/app/services/teacher.service.ts
+
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Teacher } from '../models/teacher.model'; // Importa el modelo de Teacher
+import { Teacher } from '../models/teacher.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class TeacherService {
-
-  private apiUrl = 'http://localhost:3000/teachers';  // URL de tu API para profesores
+  private apiUrl = 'http://localhost:3000/teachers'; // Actualiza con la URL de tu API
 
   constructor(private http: HttpClient) {}
 
@@ -17,19 +18,14 @@ export class TeacherService {
     return this.http.get<Teacher[]>(this.apiUrl);
   }
 
-  // Obtener un profesor por ID
-  getTeacherById(id: number): Observable<Teacher> {
-    return this.http.get<Teacher>(`${this.apiUrl}/${id}`);
-  }
-
-  // Agregar un nuevo profesor
+  // Agregar un profesor
   addTeacher(teacher: Teacher): Observable<Teacher> {
     return this.http.post<Teacher>(this.apiUrl, teacher);
   }
 
   // Actualizar un profesor
-  updateTeacher(teacher: Teacher): Observable<Teacher> {
-    return this.http.put<Teacher>(`${this.apiUrl}/${teacher.id}`, teacher);
+  updateTeacher(id: number, teacher: Teacher): Observable<Teacher> {
+    return this.http.put<Teacher>(`${this.apiUrl}/${id}`, teacher);
   }
 
   // Eliminar un profesor
@@ -37,3 +33,4 @@ export class TeacherService {
     return this.http.delete<void>(`${this.apiUrl}/${id}`);
   }
 }
+

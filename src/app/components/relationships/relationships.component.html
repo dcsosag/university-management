@@ -1,1 +1,77 @@
-<p>relationships works!</p>
+<div>
+  <h1>Gestión de Relaciones: Estudiantes, Profesores y Asignaturas</h1>
+
+  <!-- Consultar Estudiantes -->
+  <div>
+    <h2>Consultar Estudiantes</h2>
+    <button (click)="getEstudiantes()">Ver Todos</button>
+    <input [(ngModel)]="studentId" placeholder="ID Estudiante">
+    <button (click)="getEstudiantePorId()">Buscar por ID</button>
+    <ul>
+      <li *ngFor="let estudiante of estudiantes">{{ estudiante.nombre }} (ID: {{ estudiante.id }})</li>
+    </ul>
+  </div>
+
+  <!-- Consultar Profesores -->
+  <div>
+    <h2>Consultar Profesores</h2>
+    <button (click)="getProfesores()">Ver Todos</button>
+    <input [(ngModel)]="profesorId" placeholder="ID Profesor">
+    <button (click)="getProfesorPorId()">Buscar por ID</button>
+    <ul>
+      <li *ngFor="let profesor of profesores">{{ profesor.nombre }} (ID: {{ profesor.id }})</li>
+    </ul>
+  </div>
+
+  <!-- Consultar Asignaturas -->
+  <div>
+    <h2>Consultar Asignaturas</h2>
+    <button (click)="getAsignaturas()">Ver Todos</button>
+    <input [(ngModel)]="asignaturaId" placeholder="ID Asignatura">
+    <button (click)="getAsignaturaPorId()">Buscar por ID</button>
+    <ul>
+      <li *ngFor="let asignatura of asignaturas">{{ asignatura.nombre }} (ID: {{ asignatura.id }})</li>
+    </ul>
+  </div>
+
+  <!-- Consultar Profesores que Imparten Asignaturas -->
+  <div>
+    <h2>Profesores que Imparten Asignatura</h2>
+    <input [(ngModel)]="profesorId" placeholder="ID Profesor">
+    <button (click)="getProfesorAsignaturas()">Ver Asignaturas</button>
+    <ul>
+      <li *ngFor="let asignatura of profesorAsignaturas">
+        {{ asignatura.nombre }} | Grupo: {{ asignatura.grupo }} | Horario: {{ asignatura.horario }}
+      </li>
+    </ul>
+  </div>
+
+  <!-- Consultar Estudiantes por Asignatura -->
+  <div>
+    <h2>Estudiantes por Asignatura</h2>
+    <input [(ngModel)]="asignaturaId" placeholder="ID Asignatura">
+    <input [(ngModel)]="grupo" placeholder="Grupo">
+    <button (click)="getEstudiantesPorAsignatura()">Ver Estudiantes</button>
+    <ul>
+      <li *ngFor="let estudiante of estudianteAsignaturas">
+        {{ estudiante.nombre }} | Notas: {{ estudiante.n1 }}, {{ estudiante.n2 }}, {{ estudiante.n3 }}
+      </li>
+    </ul>
+  </div>
+
+  <!-- Actualizar Notas -->
+  <div>
+    <h2>Actualizar Notas</h2>
+    <input [(ngModel)]="notas.n1" placeholder="Nota 1">
+    <input [(ngModel)]="notas.n2" placeholder="Nota 2">
+    <input [(ngModel)]="notas.n3" placeholder="Nota 3">
+    <button (click)="actualizarNotas()">Actualizar Notas</button>
+  </div>
+
+  <!-- Eliminar Relaciones -->
+  <div>
+    <h2>Eliminar Relaciones</h2>
+    <button (click)="eliminarProfesorAsignatura()">Eliminar Profesor de Asignatura</button>
+    <button (click)="eliminarEstudianteAsignatura()">Eliminar Estudiante de Asignatura</button>
+  </div>
+</div>

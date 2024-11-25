@@ -1,37 +1,33 @@
-<div class="container mt-5">
-    <h2>Gestión de Estudiantes</h2>
-    <form (ngSubmit)="addStudent()">
-      <div class="mb-3">
-        <label for="name" class="form-label">Nombre</label>
-        <input
-          type="text"
-          id="name"
-          class="form-control"
-          [(ngModel)]="newStudent.name"
-          name="name"
-          required
-        />
-      </div>
-      <div class="mb-3">
-        <label for="email" class="form-label">Email</label>
-        <input
-          type="email"
-          id="email"
-          class="form-control"
-          [(ngModel)]="newStudent.email"
-          name="email"
-          required
-        />
-      </div>
-      <button class="btn btn-primary">Agregar Estudiante</button>
-    </form>
-    <hr />
-    <h3>Lista de Estudiantes</h3>
-    <ul class="list-group">
-      <li class="list-group-item d-flex justify-content-between align-items-center" *ngFor="let student of students">
-        {{ student.name }} - {{ student.email }}
-        <button class="btn btn-danger btn-sm" (click)="deleteStudent(student.id)">Eliminar</button>
-      </li>
-    </ul>
-  </div>
-  
+<h1>Gestión de Estudiantes</h1>
+
+<!-- Formulario para agregar o actualizar estudiantes -->
+<form (ngSubmit)="saveStudent()" class="form">
+  <label for="cod_e">Código:</label>
+  <input type="number" id="cod_e" [(ngModel)]="newStudent.cod_e" name="cod_e" required />
+
+  <label for="nom_e">Nombre:</label>
+  <input type="text" id="nom_e" [(ngModel)]="newStudent.nom_e" name="nom_e" required />
+
+  <label for="dir_e">Dirección:</label>
+  <input type="text" id="dir_e" [(ngModel)]="newStudent.dir_e" name="dir_e" required />
+
+  <label for="tel_e">Teléfono:</label>
+  <input type="text" id="tel_e" [(ngModel)]="newStudent.tel_e" name="tel_e" required />
+
+  <label for="fech_nac">Fecha de Nacimiento:</label>
+  <input type="date" id="fech_nac" [(ngModel)]="newStudent.fech_nac" name="fech_nac" required />
+
+  <button type="submit">{{ editingIndex !== null ? 'Actualizar' : 'Agregar' }} Estudiante</button>
+  <button type="button" (click)="resetForm()" *ngIf="editingIndex !== null">Cancelar</button>
+</form>
+
+<!-- Lista de estudiantes -->
+<ul class="student-list">
+  <li *ngFor="let student of students; let i = index">
+    <strong>{{ student.nom_e }}</strong> ({{ student.cod_e }}) - {{ student.tel_e }}
+    <br />
+    Dirección: {{ student.dir_e }} | Fecha de Nacimiento: {{ student.fech_nac }}
+    <button (click)="editStudent(i)" class="edit-btn">Editar</button>
+    <button (click)="deleteStudent(i)" class="delete-btn">Eliminar</button>
+  </li>
+</ul>

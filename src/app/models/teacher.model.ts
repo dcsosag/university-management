@@ -1,11 +1,10 @@
 // src/app/models/teacher.model.ts
-
-import { Course } from './course.model';  // Asegúrate de importar el modelo de Course
+// src/app/models/teacher.model.ts
 
 export interface Teacher {
-  id: number;          // ID único del profesor
-  name: string;        // Nombre completo del profesor
-  email: string;       // Correo electrónico del profesor
-  department: string;  // Departamento o área académica del profesor
-  courses: Course[];   // Lista de asignaturas que el profesor imparte (relación con Course)
+  id_p: number;
+  nom_p: string;
+  dir_p: string;
+  tel_p: string;
+  profesion: string;
 }

@@ -1,21 +1,24 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { environment } from '../../environments/environment';  // Para gestionar la URL base de la API
-
-// Modelos que puedes necesitar
+import { Relationship } from '../models/relationship.model';
 import { Teacher } from '../models/teacher.model';
 import { Course } from '../models/course.model';
 import { Student } from '../models/student.model';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class RelationshipService {
+  private apiUrl = `${environment.apiUrl}/relationships`;
 
-  private apiUrl = `${environment.apiUrl}/relationships`;  // Cambia la URL con la que se comunica con tu API
+  constructor(private http: HttpClient) {}
 
-  constructor(private http: HttpClient) { }
+  // Obtener todas las relaciones
+  getRelationships(): Observable<Relationship[]> {
+    return this.http.get<Relationship[]>(this.apiUrl);
+  }
 
   // Obtener todas las asignaturas que imparte un profesor
   getCoursesByTeacher(teacherId: number): Observable<Course[]> {
