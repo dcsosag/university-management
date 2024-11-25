@@ -1,22 +1,30 @@
-<div class="container">
-    <h2>Asignaturas</h2>
-    <table class="table">
-      <thead>
-        <tr>
-          <th>ID</th>
-          <th>Nombre</th>
-          <th>Código</th>
-          <th>Descripción</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let course of courses">
-          <td>{{ course.id }}</td>
-          <td>{{ course.name }}</td>
-          <td>{{ course.code }}</td>
-          <td>{{ course.description }}</td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-  
+<h1>Gestión de Cursos</h1>
+
+<!-- Formulario para agregar o actualizar cursos -->
+<form (ngSubmit)="saveCourse()" class="form">
+  <label for="cod_a">Código:</label>
+  <input type="text" id="cod_a" [(ngModel)]="newCourse.cod_a" name="cod_a" required />
+
+  <label for="nom_a">Nombre:</label>
+  <input type="text" id="nom_a" [(ngModel)]="newCourse.nom_a" name="nom_a" required />
+
+  <label for="int_h">Intensidad Horaria:</label>
+  <input type="number" id="int_h" [(ngModel)]="newCourse.int_h" name="int_h" required min="1" />
+
+  <label for="creditos">Créditos:</label>
+  <input type="number" id="creditos" [(ngModel)]="newCourse.creditos" name="creditos" required min="1" />
+
+  <button type="submit">{{ editingIndex !== null ? 'Actualizar' : 'Agregar' }} Curso</button>
+  <button type="button" (click)="resetForm()" *ngIf="editingIndex !== null">Cancelar</button>
+</form>
+
+<!-- Lista de cursos -->
+<ul class="course-list">
+  <li *ngFor="let course of courses; let i = index">
+    <strong>{{ course.nom_a }} ({{ course.cod_a }})</strong> - Intensidad Horaria: {{ course.int_h }}h, Créditos: {{ course.creditos }}
+    <br />
+    <button (click)="editCourse(i)" class="edit-btn">Editar</button>
+    <button (click)="deleteCourse(i)" class="delete-btn">Eliminar</button>
+  </li>
+</ul>
+
