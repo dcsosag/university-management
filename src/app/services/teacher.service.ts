@@ -9,7 +9,7 @@ import { Teacher } from '../models/teacher.model';
   providedIn: 'root'
 })
 export class TeacherService {
-  private apiUrl = 'http://localhost:3000/teachers'; // Actualiza con la URL de tu API
+  private apiUrl = 'http://localhost:3000/api/profesor'; // Actualiza con la URL de tu API
 
   constructor(private http: HttpClient) {}
 
@@ -24,8 +24,8 @@ export class TeacherService {
   }
 
   // Actualizar un profesor
-  updateTeacher(id: number, teacher: Teacher): Observable<Teacher> {
-    return this.http.put<Teacher>(`${this.apiUrl}/${id}`, teacher);
+  updateTeacher(id_p: number, teacher: Teacher): Observable<Teacher> {
+    return this.http.put<Teacher>(`${this.apiUrl}/${id_p}`, teacher);
   }
 
   // Eliminar un profesor

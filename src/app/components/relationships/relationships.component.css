@@ -1,24 +1,86 @@
-div {
-  margin: 20px;
+/* Estilo general del contenedor */
+.container {
+  font-family: Arial, sans-serif;
+  margin: 20px auto;
+  max-width: 800px;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-form {
+/* Encabezados */
+h1 {
+  font-size: 24px;
+  text-align: center;
+  color: #333;
+}
+
+h2 {
+  font-size: 20px;
+  margin-bottom: 15px;
+}
+
+h3 {
+  font-size: 18px;
+  margin-bottom: 10px;
+  color: #555;
+}
+
+/* Filtros */
+.filters {
   margin-bottom: 20px;
 }
 
-table {
-  width: 100%;
-  border-collapse: collapse;
+.filter-group {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
 }
 
-table th, table td {
-  padding: 8px;
-  text-align: left;
+label {
+  margin-right: 10px;
+  font-weight: bold;
+  color: #444;
+}
+
+input[type="number"] {
+  padding: 5px 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  width: 200px;
+}
+
+/* Bloques de datos */
+.data-section {
+  display: flex;
+  justify-content: space-between;
+}
+
+.data-block {
+  flex: 1;
+  margin-right: 20px;
+}
+
+.data-block:last-child {
+  margin-right: 0;
+}
+
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+li {
+  background-color: #fff;
   border: 1px solid #ddd;
+  margin-bottom: 5px;
+  padding: 10px;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
 }
 
-button {
-  margin: 5px;
+li:hover {
+  background-color: #f0f0f0;
 }
-
-  

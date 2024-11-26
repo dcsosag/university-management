@@ -1,88 +1,47 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http'; // Para hacer las solicitudes HTTP
-import { Student } from '../../models/student.model';
-import { Teacher } from '../../models/teacher.model';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
+import { Observable, of } from 'rxjs';
+import { RelationshipService } from '../../services/relationship.service';
 import { Course } from '../../models/course.model';
+import { Teacher } from '../../models/teacher.model';
+import { Student } from '../../models/student.model';
 
 @Component({
   selector: 'app-relationship',
+  standalone: true,
+  imports: [CommonModule, FormsModule, HttpClientModule],
   templateUrl: './relationships.component.html',
-  styleUrls: ['./relationships.component.css']
+  styleUrls: ['./relationships.component.css'],
 })
-export class RelationshipsComponent implements OnInit {
-  students: Student[] = [];
-  teachers: Teacher[] = [];
-  courses: Course[] = [];
-  relationships: any[] = []; // Este arreglo contendrá las relaciones entre estudiantes, profesores y cursos
-  
-  // Variables para almacenar las entradas de la relación
-  selectedStudent: Student | null = null;
-  selectedTeacher: Teacher | null = null;
-  selectedCourse: Course | null = null;
-  group: number = 0;
-  schedule: string = '';
+export class RelationshipComponent implements OnInit {
+  courses$: Observable<Course[]> = of([]);
+  teachers$: Observable<Teacher[]> = of([]);
+  students$: Observable<Student[]> = of([]);
 
-  constructor(private http: HttpClient) {}
+  constructor(private relationshipService: RelationshipService) {}
 
   ngOnInit(): void {
-    this.loadData();
+    this.loadAllData(); // Cargar todos los datos al inicializar el componente
   }
 
-  // Método para cargar los datos de estudiantes, profesores y cursos
-  loadData(): void {
-    // Obtener los estudiantes
-    this.http.get<Student[]>('/api/students').subscribe((data) => {
-      this.students = data;
-    });
-
-    // Obtener los profesores
-    this.http.get<Teacher[]>('/api/teachers').subscribe((data) => {
-      this.teachers = data;
-    });
-
-    // Obtener los cursos
-    this.http.get<Course[]>('/api/courses').subscribe((data) => {
-      this.courses = data;
-    });
-
-    // Obtener las relaciones existentes (por ejemplo, de estudiantes y profesores que dictan cursos)
-    this.http.get<any[]>('/api/relationships').subscribe((data) => {
-      this.relationships = data;
-    });
+  loadAllData(): void {
+    this.courses$ = this.relationshipService.getCoursesByTeacher(1); // Puedes reemplazar 1 por el ID del profesor
+    this.teachers$ = this.relationshipService.getTeachersByCourse(1); // Aquí el ID de la asignatura
+    this.students$ = this.relationshipService.getStudentsByCourse(1,1); // ID de asignatura
   }
 
-  // Método para agregar una relación entre estudiante, profesor y asignatura
-  addRelationship(): void {
-    const relationship = {
-      studentId: this.selectedStudent?.cod_e,
-      teacherId: this.selectedTeacher?.id_p,
-      courseId: this.selectedCourse?.cod_a,
-      group: this.group,
-      schedule: this.schedule
-    };
-
-    // Realizar la petición HTTP para agregar la relación
-    this.http.post('/api/relationships', relationship).subscribe(() => {
-      this.loadData(); // Recargar datos para reflejar la nueva relación
-    });
+  // Métodos para filtrar datos
+  loadCoursesByTeacher(id_p: number): void {
+    this.courses$ = this.relationshipService.getCoursesByTeacher(id_p);
   }
 
-  // Método para eliminar una relación
-  deleteRelationship(id: number): void {
-    this.http.delete(`/api/relationships/${id}`).subscribe(() => {
-      this.loadData(); // Recargar datos para reflejar la eliminación
-    });
+  loadTeachersByCourse(cod_a: number): void {
+    this.teachers$ = this.relationshipService.getTeachersByCourse(cod_a);
   }
 
-  // Método para actualizar una relación (grupo o horario)
-  updateRelationship(id: number): void {
-    const updatedRelationship = {
-      group: this.group,
-      schedule: this.schedule
-    };
-
-    this.http.put(`/api/relationships/${id}`, updatedRelationship).subscribe(() => {
-      this.loadData(); // Recargar datos para reflejar la actualización
-    });
+  loadStudentsByCourse(cod_a: number, grupo: number): void {
+    this.students$ = this.relationshipService.getStudentsByCourse(cod_a, grupo);
   }
 }
